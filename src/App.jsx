@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import Header from './components/Header/Header'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div>
-      <h1>Barbearia Vikings</h1>
+      <Header />
     </div>
   )
 }
