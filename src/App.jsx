@@ -10,6 +10,7 @@ function App() {
 
   return (
     <div className="app">
+      {console.log('deploy test')}
       <Background />
       <Header />
       <Podium />
