@@ -1,32 +1,23 @@
-.background {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
+.background__scissor {
+  position: absolute;
+  animation: floatDiagonal linear infinite;
+  will-change: transform;
+  user-select: none;
 }
 
 @keyframes floatDiagonal {
   0% {
-    transform: translate(0, 0) rotate(-45deg);
+    transform: translate(0, 0) rotate(-20deg);
     opacity: 0;
   }
   10% {
-    opacity: 0.06;
+    opacity: 0.1;
   }
   90% {
-    opacity: 0.06;
+    opacity: 0.1;
   }
   100% {
-    transform: translate(120px, 120px) rotate(-45deg);
+    transform: translate(120px, 120px) rotate(-20deg);
     opacity: 0;
   }
-}
-
-.background__scissor {
-  position: absolute;
-  color: var(--color-text-primary);
-  animation: floatDiagonal linear infinite;
-  will-change: transform;
-  user-select: none;
 }
