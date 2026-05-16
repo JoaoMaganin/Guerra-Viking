@@ -4,6 +4,7 @@ import Podium from './components/Podium/Podium'
 import RankingList from './components/RankingList/RankingList'
 import './App.css'
 import Background from './components/Background/Background'
+import Footer from './components/Footer/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,6 +16,7 @@ function App() {
       <Header />
       <Podium />
       <RankingList />
+      <Footer />
     </div>
   )
 }
