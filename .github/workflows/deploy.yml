@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_CSV_URL: ${{ secrets.VITE_CSV_URL }}
+          VITE_CSV_URL: ${{ secrets.VITE_CSV_URL }} # actions secret
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3 #deploy
