@@ -27,6 +27,19 @@
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: var(--spacing-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-accent) 40%,
+    #fff 50%,
+    var(--color-accent) 60%,
+    var(--color-accent) 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 8s linear infinite;
 }
 
 .header__title {

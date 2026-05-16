@@ -21,7 +21,6 @@ const SCISSORS = Array.from({ length: COLS * ROWS }, (_, i) => {
 function Background() {
   return (
     <div className="background" aria-hidden="true">
-      {/* <img src={logo} alt="" style={{width: '100%', height: '100%'}}/> */}
       {SCISSORS.map(({ id, size, top, left, duration, delay }) => (
         <img
           key={id}
@@ -36,6 +35,7 @@ function Background() {
           }}
         />
       ))}
+      
     </div>
   )
 }

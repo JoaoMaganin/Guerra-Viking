@@ -1,13 +1,67 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/bg-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guerra Viking</title>
+    <link rel="icon" type="image/svg+xml" href="/bg-logo.png" />
+    <title>Barbearia Vikings</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #0C0C0C;
+      }
+
+      #splash {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      #splash p {
+        font-family: 'Georgia', serif;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #7A7268;
+        animation: pulse 1.5s ease infinite;
+      }
+
+      #splash-title {
+        font-family: 'Georgia', serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: #F0EBE0;
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.3; }
+        50%       { opacity: 1;   }
+      }
+    </style>
   </head>
   <body>
+    <div id="splash">
+      <p id="splash-title">Barbearia<br/>Vikings</p>
+      <p>Carregando ranking...</p>
+    </div>
     <div id="root"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new MutationObserver(() => {
+          const root = document.getElementById('root')
+          if (root && root.children.length > 0) {
+            document.getElementById('splash').style.display = 'none'
+            observer.disconnect()
+          }
+        })
+        observer.observe(document.getElementById('root'), { childList: true })
+      })
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
