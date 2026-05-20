@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react'
 import './Podium.css'
-import { fetchRanking } from '../../services/rankService'
+import type { PodiumProps, Person } from '../../types'
 
-const HEIGHTS = { 1: 160, 2: 120, 3: 90 }
+const HEIGHTS: Record<number, number> = { 1: 160, 2: 120, 3: 90 }
 
-const podiumOrder = (data) => [
+const podiumOrder = (data: Person[]) => [
   { person: data[1], rank: 2 },
   { person: data[0], rank: 1 },
   { person: data[2], rank: 3 },
 ]
+
+interface PodiumSlotProps {
+  person: Person
+  rank: number
+}
 
 function PodiumSkeleton() {
   return (
@@ -20,7 +24,7 @@ function PodiumSkeleton() {
   )
 }
 
-function PodiumSlot({ person, rank }) {
+function PodiumSlot({ person, rank }: PodiumSlotProps) {
   return (
     <div className={`podium__slot podium__slot--${rank}`}>
       <div className="podium__info">
@@ -40,7 +44,7 @@ function PodiumSlot({ person, rank }) {
   )
 }
 
-function Podium({ data, loading }) {
+function Podium({ data, loading }: PodiumProps) {
   if (loading) return <PodiumSkeleton />
   if (!data || data.length < 3) return null
 

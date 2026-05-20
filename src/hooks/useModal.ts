@@ -1,6 +1,12 @@
 import { useState } from 'react'
 
-function useModal() {
+interface UseModalReturn {
+  isOpen: boolean
+  open: () => void
+  close: () => void
+}
+
+function useModal(): UseModalReturn {
   const [isOpen, setIsOpen] = useState(false)
 
   const open  = () => setIsOpen(true)

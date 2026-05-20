@@ -1,10 +1,19 @@
-import './Background.css';
+import './Background.css'
 
-const logo = `${import.meta.env.BASE_URL}bg-logo.png`
 const COLS = 5
 const ROWS = 4
+const logo = `${import.meta.env.BASE_URL}bg-logo.png`
 
-const SCISSORS = Array.from({ length: COLS * ROWS }, (_, i) => {
+interface ScissorItem {
+  id: number
+  size: number
+  top: number
+  left: number
+  duration: number
+  delay: number
+}
+
+const SCISSORS: ScissorItem[] = Array.from({ length: COLS * ROWS }, (_, i) => {
   const col = i % COLS
   const row = Math.floor(i / COLS)
 
@@ -35,7 +44,13 @@ function Background() {
           }}
         />
       ))}
-      
+      <div className="background__fire">
+        <div className="background__ember background__ember--1" />
+        <div className="background__ember background__ember--2" />
+        <div className="background__ember background__ember--3" />
+        <div className="background__ember background__ember--4" />
+        <div className="background__ember background__ember--5" />
+      </div>
     </div>
   )
 }

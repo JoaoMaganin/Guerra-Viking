@@ -1,8 +1,14 @@
-import { useState, useEffect } from 'react'
 import './RankingList.css'
-import { fetchRanking } from '../../services/rankService'
+import type { RankingListProps, Person } from '../../types'
 
-function RankingItemSkeleton({ index }) {
+interface RankingItemProps {
+  person: Person
+  rank: number
+  index: number
+  maxReferrals: number
+}
+
+function RankingItemSkeleton({ index }: { index: number }) {
   return (
     <li
       className="ranking-list__skeleton-item"
@@ -11,7 +17,7 @@ function RankingItemSkeleton({ index }) {
   )
 }
 
-function RankingItem({ person, rank, index, maxReferrals }) {
+function RankingItem({ person, rank, index, maxReferrals }: RankingItemProps) {
   const barWidth = Math.round((person.referrals / maxReferrals) * 100)
 
   return (
@@ -22,7 +28,7 @@ function RankingItem({ person, rank, index, maxReferrals }) {
       <div className="ranking-list__bar">
         <div
           className="ranking-list__bar-fill"
-          style={{ '--bar-width': `${barWidth}%` }}
+          style={{ '--bar-width': `${barWidth}%` } as React.CSSProperties}
         />
       </div>
       <span className="ranking-list__count">{person.referrals}</span>
@@ -30,7 +36,7 @@ function RankingItem({ person, rank, index, maxReferrals }) {
   )
 }
 
-function RankingList({ data, loading }) {
+function RankingList({ data, loading }: RankingListProps) {
   const maxReferrals = data?.[0]?.referrals ?? 1
 
   return (

@@ -6,18 +6,24 @@ import Podium from './components/Podium/Podium'
 import RankingList from './components/RankingList/RankingList'
 import Footer from './components/Footer/Footer'
 import { fetchRanking, getCache } from './services/rankService'
+import type { Person } from './types'
 
 function App() {
-  const [ranking, setRanking] = useState(getCache)
-  const [loading, setLoading] = useState(!getCache())
+  const [ranking, setRanking] = useState<Person[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchRanking()
-      .then(data => {
+    getCache().then(cached => {
+      if (cached) {
+        setRanking(cached)
+        setLoading(false)
+      }
+
+      fetchRanking().then(data => {
         setRanking(data)
         setLoading(false)
       })
-      .catch(err => console.error('Erro:', err))
+    })
   }, [])
 
   return (
@@ -25,8 +31,8 @@ function App() {
       <Background />
       <Header />
       <main className="app__content">
-        <Podium data={ranking?.slice(0, 3)} loading={loading} />
-        <RankingList data={ranking?.slice(3)} loading={loading} />
+        <Podium data={ranking.slice(0, 3)} loading={loading} />
+        <RankingList data={ranking.slice(3)} loading={loading} />
       </main>
       <Footer />
     </div>
