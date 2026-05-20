@@ -15,9 +15,9 @@ function normalize(name: string): string {
 
 function parseCSV(text: string): Record<string, string>[] {
   const [headerLine, ...lines] = text.trim().split('\n')
-  const headers = headerLine.split(',').map(h => h.trim().toLowerCase())
+  const headers = headerLine.split(',').map((h) => h.trim().toLowerCase())
 
-  return lines.map(line => {
+  return lines.map((line) => {
     const values = line.split(',')
     return headers.reduce((obj: Record<string, string>, header, i) => {
       obj[header] = values[i]?.trim() ?? ''
@@ -29,7 +29,7 @@ function parseCSV(text: string): Record<string, string>[] {
 function groupByIndicador(rows: Record<string, string>[]): Person[] {
   const groups: Record<string, Person> = {}
 
-  rows.forEach(row => {
+  rows.forEach((row) => {
     const raw = row['indicador']
     if (!raw) return
     const key = normalize(raw)
@@ -46,7 +46,7 @@ function groupByIndicador(rows: Record<string, string>[]): Person[] {
 function mergeByFuzzy(people: Person[]): Person[] {
   const merged: Person[] = []
 
-  people.forEach(person => {
+  people.forEach((person) => {
     const fuse = new Fuse(merged, {
       keys: ['name'],
       threshold: 0.3,
@@ -65,26 +65,19 @@ function mergeByFuzzy(people: Person[]): Person[] {
   return merged
 }
 
-function applyBonusPoints(
-  rows: Record<string, string>[],
-  groups: Person[]
-): Person[] {
-  const indicadores = new Set(
-    rows.map(row => normalize(row['indicador'])).filter(Boolean)
-  )
+function applyBonusPoints(rows: Record<string, string>[], groups: Person[]): Person[] {
+  const indicadores = new Set(rows.map((row) => normalize(row['indicador'])).filter(Boolean))
 
-  return groups.map(person => {
+  return groups.map((person) => {
     const personKey = normalize(person.name)
 
     const indicados = rows
-      .filter(row => normalize(row['indicador']) === personKey)
-      .map(row => normalize(row['indicado']))
+      .filter((row) => normalize(row['indicador']) === personKey)
+      .map((row) => normalize(row['indicado']))
 
     const indicadosUnicos = [...new Set(indicados)]
 
-    const bonus = indicadosUnicos.filter(
-      indicado => indicadores.has(indicado)
-    ).length
+    const bonus = indicadosUnicos.filter((indicado) => indicadores.has(indicado)).length
 
     return { ...person, referrals: person.referrals + bonus, bonus }
   })
@@ -94,7 +87,7 @@ function getInitials(name: string): string {
   return name
     .split(' ')
     .slice(0, 2)
-    .map(n => n[0])
+    .map((n) => n[0])
     .join('')
     .toUpperCase()
 }

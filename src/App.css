@@ -55,9 +55,15 @@
   animation: shimmer 1.5s ease infinite;
 }
 
-.app__skeleton-block.small  { height: 80px;  }
-.app__skeleton-block.medium { height: 110px; }
-.app__skeleton-block.large  { height: 150px; }
+.app__skeleton-block.small {
+  height: 80px;
+}
+.app__skeleton-block.medium {
+  height: 110px;
+}
+.app__skeleton-block.large {
+  height: 150px;
+}
 
 .app__skeleton-list {
   display: flex;
@@ -73,17 +79,35 @@
   animation: shimmer 1.5s ease infinite;
 }
 
-.app__skeleton-item:nth-child(2) { animation-delay: 0.1s; }
-.app__skeleton-item:nth-child(3) { animation-delay: 0.2s; }
-.app__skeleton-item:nth-child(4) { animation-delay: 0.3s; }
-.app__skeleton-item:nth-child(5) { animation-delay: 0.4s; }
+.app__skeleton-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.app__skeleton-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.app__skeleton-item:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.app__skeleton-item:nth-child(5) {
+  animation-delay: 0.4s;
+}
 
 @keyframes shimmer {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 0.8; }
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.3; }
-  50%       { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
 }

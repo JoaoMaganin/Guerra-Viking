@@ -10,10 +10,7 @@ interface RankingItemProps {
 
 function RankingItemSkeleton({ index }: { index: number }) {
   return (
-    <li
-      className="ranking-list__skeleton-item"
-      style={{ animationDelay: `${index * 0.08}s` }}
-    />
+    <li className="ranking-list__skeleton-item" style={{ animationDelay: `${index * 0.08}s` }} />
   )
 }
 
@@ -49,9 +46,7 @@ function RankingList({ data, loading }: RankingListProps) {
         </div>
         <ul>
           {loading
-            ? Array.from({ length: 5 }, (_, i) => (
-                <RankingItemSkeleton key={i} index={i} />
-              ))
+            ? Array.from({ length: 5 }, (_, i) => <RankingItemSkeleton key={i} index={i} />)
             : data.map((person, index) => (
                 <RankingItem
                   key={person.id}
@@ -60,8 +55,7 @@ function RankingList({ data, loading }: RankingListProps) {
                   index={index}
                   maxReferrals={maxReferrals}
                 />
-              ))
-          }
+              ))}
         </ul>
       </div>
     </section>

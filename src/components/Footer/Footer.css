@@ -30,7 +30,7 @@
 }
 
 .footer_span {
-    color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
 }
 
 .footer__link {
@@ -53,6 +53,10 @@
 }
 
 @keyframes shine {
-  0%   { background-position: 200% center; }
-  100% { background-position: -200% center; }
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
 }

@@ -29,13 +29,9 @@ function PodiumSlot({ person, rank }: PodiumSlotProps) {
     <div className={`podium__slot podium__slot--${rank}`}>
       <div className="podium__info">
         {rank === 1 && <span className="podium__crown">♛</span>}
-        <div className={`podium__avatar podium__avatar--${rank}`}>
-          {person.initials}
-        </div>
+        <div className={`podium__avatar podium__avatar--${rank}`}>{person.initials}</div>
         <p className="podium__name">{person.name}</p>
-        <p className={`podium__count podium__count--${rank}`}>
-          {person.referrals} indicações
-        </p>
+        <p className={`podium__count podium__count--${rank}`}>{person.referrals} indicações</p>
       </div>
       <div className="podium__block" style={{ height: HEIGHTS[rank] }}>
         <span className="podium__rank-number">{rank}</span>

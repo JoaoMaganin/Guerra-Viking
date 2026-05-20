@@ -13,13 +13,13 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getCache().then(cached => {
+    getCache().then((cached) => {
       if (cached) {
         setRanking(cached)
         setLoading(false)
       }
 
-      fetchRanking().then(data => {
+      fetchRanking().then((data) => {
         setRanking(data)
         setLoading(false)
       })

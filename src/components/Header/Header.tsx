@@ -11,7 +11,11 @@ function Header() {
 
       <div className="header__content">
         <p className="header__eyebrow">✦ Ranking de Indicações ✦</p>
-        <h1 className="header__title">Barbearia<br />Vikings</h1>
+        <h1 className="header__title">
+          Barbearia
+          <br />
+          Vikings
+        </h1>
         <p className="header__subtitle">Mês de Maio · 2026</p>
 
         <button className="header__rules-btn" onClick={open}>
@@ -25,7 +29,6 @@ function Header() {
           <p>As regras serão definidas em breve.</p>
         </div>
       </Modal>
-
     </header>
   )
 }

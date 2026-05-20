@@ -4,16 +4,16 @@
   /* Cores base */
   --color-bg-primary: #000004;
   --color-bg-secondary: #141414;
-  --color-bg-tertiary: #1A1A1A;
+  --color-bg-tertiary: #1a1a1a;
 
   /* Texto */
-  --color-text-primary: #CACBC9;
-  --color-text-secondary: #D4CFC5;
-  --color-text-muted: #7A7268;
+  --color-text-primary: #cacbc9;
+  --color-text-secondary: #d4cfc5;
+  --color-text-muted: #7a7268;
 
   /* Destaque (ouro — igual nos dois temas) */
-  --color-accent: #EE1B2D;
-  --color-accent-dim: #C9A84C22;
+  --color-accent: #ee1b2d;
+  --color-accent-dim: #c9a84c22;
 
   /* Medalhas */
   --color-gold: #ecbd3d;
@@ -21,8 +21,8 @@
   --color-bronze: #bb855f;
 
   /* Bordas */
-  --color-border: #1E1E1E;
-  --color-border-accent: #C9A84C44;
+  --color-border: #1e1e1e;
+  --color-border-accent: #c9a84c44;
 
   /* Tipografia */
   --font-display: 'Cinzel', Georgia, serif;
@@ -41,15 +41,15 @@
   --radius-lg: 12px;
 }
 
-[data-theme="light"] {
-  --color-bg-primary: #F5F0E8;
-  --color-bg-secondary: #EEEBE3;
-  --color-bg-tertiary: #E5E0D5;
+[data-theme='light'] {
+  --color-bg-primary: #f5f0e8;
+  --color-bg-secondary: #eeebe3;
+  --color-bg-tertiary: #e5e0d5;
 
-  --color-text-primary: #1A1612;
-  --color-text-secondary: #3D3730;
-  --color-text-muted: #8A8278;
+  --color-text-primary: #1a1612;
+  --color-text-secondary: #3d3730;
+  --color-text-muted: #8a8278;
 
-  --color-border: #D8D3C8;
-  --color-border-accent: #C9A84C66;
+  --color-border: #d8d3c8;
+  --color-border-accent: #c9a84c66;
 }

@@ -20,8 +20,8 @@ const SCISSORS: ScissorItem[] = Array.from({ length: COLS * ROWS }, (_, i) => {
   return {
     id: i,
     size: Math.random() * 40 + 24,
-    top: (row / ROWS) * 100 + Math.random() * (100 / ROWS * 0.6),
-    left: (col / COLS) * 100 + Math.random() * (100 / COLS * 0.6),
+    top: (row / ROWS) * 100 + Math.random() * ((100 / ROWS) * 0.6),
+    left: (col / COLS) * 100 + Math.random() * ((100 / COLS) * 0.6),
     duration: Math.random() * 15 + 20,
     delay: Math.random() * 10 * -1,
   }

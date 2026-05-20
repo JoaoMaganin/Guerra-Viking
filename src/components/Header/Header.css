@@ -7,9 +7,12 @@
   height: 4px;
   background: repeating-linear-gradient(
     90deg,
-    #C9351A 0px,   #C9351A 14px,
-    #F0EBE0 14px,  #F0EBE0 28px,
-    #1A3A6B 28px,  #1A3A6B 42px
+    #c9351a 0px,
+    #c9351a 14px,
+    #f0ebe0 14px,
+    #f0ebe0 28px,
+    #1a3a6b 28px,
+    #1a3a6b 42px
   );
   opacity: 0.6;
   margin-bottom: var(--spacing-xl);
@@ -74,13 +77,15 @@
   padding: var(--spacing-sm) var(--spacing-xl);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
   position: relative;
 }
 
 .header__rules-btn:hover {
   background: var(--color-accent);
-  color: #0C0C0C;
+  color: #0c0c0c;
 }
 
 /* Seta botão */
@@ -107,7 +112,7 @@
 
 .header__rules-btn:hover {
   background: var(--color-accent);
-  color: #0C0C0C;
+  color: #0c0c0c;
 }
 
 .header__rules-btn:hover::before,
@@ -116,6 +121,13 @@
 }
 
 @keyframes arrowPulse {
-  0%, 100% { transform: translateY(-50%) translateX(0);    opacity: 0.4; }
-  50%       { transform: translateY(-50%) translateX(4px);  opacity: 1;   }
+  0%,
+  100% {
+    transform: translateY(-50%) translateX(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-50%) translateX(4px);
+    opacity: 1;
+  }
 }
