@@ -37,7 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-tertiary);
+  background: var(--color-bg-primary);
   font-family: var(--font-ui);
   font-weight: 600;
   letter-spacing: 0.05em;
