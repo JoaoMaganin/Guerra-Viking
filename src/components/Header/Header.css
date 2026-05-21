@@ -1,6 +1,30 @@
 .header {
   text-align: center;
   padding-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.header__theme-btn {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.header__theme-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .header__stripe {

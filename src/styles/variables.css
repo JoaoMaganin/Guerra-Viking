@@ -42,14 +42,39 @@
 }
 
 [data-theme='light'] {
-  --color-bg-primary: #f5f0e8;
-  --color-bg-secondary: #eeebe3;
-  --color-bg-tertiary: #e5e0d5;
+  --color-bg-primary: #CACBC9;
+  --color-bg-secondary: #dedfde;
+  --color-bg-tertiary: #000004;
 
-  --color-text-primary: #1a1612;
-  --color-text-secondary: #3d3730;
+  --color-text-primary: #EE1B2D;
+  --color-text-secondary: #000004;
   --color-text-muted: #8a8278;
 
   --color-border: #d8d3c8;
   --color-border-accent: #c9a84c66;
+
+  /* Medalhas */
+  --color-gold: #f3cf6d;
+  --color-silver: #fafafa;
+  --color-bronze: #bb855f;
+
+  /* Bordas */
+  --color-border: #1e1e1e;
+  --color-border-accent: #c9a84c44;
+
+  /* Tipografia */
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-ui: 'Cinzel', 'Arial Narrow', sans-serif;
+
+  /* Espaçamento */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+
+  /* Bordas arredondadas */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 }

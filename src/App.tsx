@@ -7,10 +7,12 @@ import RankingList from './components/RankingList/RankingList'
 import Footer from './components/Footer/Footer'
 import { fetchRanking, getCache } from './services/rankService'
 import type { Person } from './types'
+import useTheme from './hooks/useTheme'
 
 function App() {
   const [ranking, setRanking] = useState<Person[]>([])
   const [loading, setLoading] = useState(true)
+  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
     getCache().then((cached) => {
@@ -28,8 +30,8 @@ function App() {
 
   return (
     <div className="app">
-      <Background />
-      <Header />
+      <Background theme={theme} />
+      <Header toggleTheme={toggleTheme} theme={theme} />
       <main className="app__content">
         <Podium data={ranking.slice(0, 3)} loading={loading} />
         <RankingList data={ranking.slice(3)} loading={loading} />

@@ -26,3 +26,14 @@ export interface ModalProps {
   onClose: () => void
   children: React.ReactNode
 }
+
+export type Theme = 'dark' | 'light'
+
+export interface BackgroundProps {
+  theme: Theme
+}
+
+export interface HeaderProps {
+  theme: Theme
+  toggleTheme: () => void
+}

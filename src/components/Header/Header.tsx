@@ -1,13 +1,23 @@
 import './Header.css'
 import Modal from '../Modal/Modal'
 import useModal from '../../hooks/useModal'
+import type { Theme } from '../../types'
 
-function Header() {
-  const { isOpen, open, close } = useModal()
+interface HeaderProps {
+  theme: Theme
+  toggleTheme: () => void
+}
+
+function Header({ theme, toggleTheme }: HeaderProps) {
+  const { isOpen, open, close } = useModal();
 
   return (
     <header className="header">
       <div className="header__stripe" />
+
+      <button className="header__theme-btn" onClick={toggleTheme}>
+        {theme === 'dark' ? '☀' : '☾'}
+      </button>
 
       <div className="header__content">
         <p className="header__eyebrow">✦ Ranking de Indicações ✦</p>

@@ -2,7 +2,6 @@ import './Background.css'
 
 const COLS = 5
 const ROWS = 4
-const logo = `${import.meta.env.BASE_URL}bg-logo.png`
 
 interface ScissorItem {
   id: number
@@ -27,7 +26,14 @@ const SCISSORS: ScissorItem[] = Array.from({ length: COLS * ROWS }, (_, i) => {
   }
 })
 
-function Background() {
+interface BackgroundProps {
+  theme: 'dark' | 'light'
+}
+
+function Background({ theme }: BackgroundProps) {
+  const logo = theme === 'light'
+    ? `${import.meta.env.BASE_URL}bg-logo-light.png`
+    : `${import.meta.env.BASE_URL}bg-logo.png`
   return (
     <div className="background" aria-hidden="true">
       {SCISSORS.map(({ id, size, top, left, duration, delay }) => (
