@@ -16,7 +16,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
       <div className="header__stripe" />
 
       <button className="header__theme-btn" onClick={toggleTheme}>
-        {theme === 'dark' ? '☀' : '☾'}
+        {theme === 'dark' ? '☾' : '☀'}
       </button>
 
       <div className="header__content">
