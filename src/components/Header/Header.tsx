@@ -1,12 +1,8 @@
 import './Header.css'
 import Modal from '../Modal/Modal'
 import useModal from '../../hooks/useModal'
-import type { Theme } from '../../types'
+import type { HeaderProps } from '../../types'
 
-interface HeaderProps {
-  theme: Theme
-  toggleTheme: () => void
-}
 
 function Header({ theme, toggleTheme }: HeaderProps) {
   const { isOpen, open, close } = useModal();

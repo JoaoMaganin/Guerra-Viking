@@ -6,6 +6,13 @@ export interface Person {
   bonus?: number
 }
 
+export interface PersonGroup {
+  name: string
+  referrals: number
+  lastIndicationDate: Date
+  bonus?: number
+}
+
 export interface CacheData {
   data: Person[]
   timestamp: number

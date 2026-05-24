@@ -1,9 +1,10 @@
 import Fuse from 'fuse.js'
-import type { Person, CacheData } from '../types/index'
+import type { Person, CacheData, PersonGroup } from '../types'
 
 const CSV_URL = import.meta.env.VITE_CSV_URL as string
 const CACHE_NAME = 'ranking-v1'
-const CACHE_TTL = 30 * 60 * 1000
+const CACHE_TTL = 1 * 60 * 1000
+
 
 function normalize(name: string): string {
   return name
@@ -15,9 +16,9 @@ function normalize(name: string): string {
 
 function parseCSV(text: string): Record<string, string>[] {
   const [headerLine, ...lines] = text.trim().split('\n')
-  const headers = headerLine.split(',').map((h) => h.trim().toLowerCase())
+  const headers = headerLine.split(',').map(h => h.trim().toLowerCase())
 
-  return lines.map((line) => {
+  return lines.map(line => {
     const values = line.split(',')
     return headers.reduce((obj: Record<string, string>, header, i) => {
       obj[header] = values[i]?.trim() ?? ''
@@ -26,27 +27,39 @@ function parseCSV(text: string): Record<string, string>[] {
   })
 }
 
-function groupByIndicador(rows: Record<string, string>[]): Person[] {
-  const groups: Record<string, Person> = {}
+function groupByIndicador(rows: Record<string, string>[]): PersonGroup[] {
+  const groups: Record<string, PersonGroup> = {}
 
-  rows.forEach((row) => {
+  rows.forEach(row => {
     const raw = row['indicador']
+    const dateRaw = row['data']
     if (!raw) return
+
     const key = normalize(raw)
+    const date = dateRaw ? new Date(dateRaw) : new Date()
 
     if (!groups[key]) {
-      groups[key] = { id: 0, name: raw.trim(), initials: '', referrals: 0 }
+      groups[key] = {
+        name: raw.trim(),
+        referrals: 0,
+        lastIndicationDate: date,
+      }
     }
+
     groups[key].referrals++
+
+    if (date > groups[key].lastIndicationDate) {
+      groups[key].lastIndicationDate = date
+    }
   })
 
   return Object.values(groups)
 }
 
-function mergeByFuzzy(people: Person[]): Person[] {
-  const merged: Person[] = []
+function mergeByFuzzy(people: PersonGroup[]): PersonGroup[] {
+  const merged: PersonGroup[] = []
 
-  people.forEach((person) => {
+  people.forEach(person => {
     const fuse = new Fuse(merged, {
       keys: ['name'],
       threshold: 0.3,
@@ -56,7 +69,11 @@ function mergeByFuzzy(people: Person[]): Person[] {
     const results = fuse.search(person.name)
 
     if (results.length > 0) {
-      results[0].item.referrals += person.referrals
+      const match = results[0].item
+      match.referrals += person.referrals
+      if (person.lastIndicationDate > match.lastIndicationDate) {
+        match.lastIndicationDate = person.lastIndicationDate
+      }
     } else {
       merged.push({ ...person })
     }
@@ -65,19 +82,26 @@ function mergeByFuzzy(people: Person[]): Person[] {
   return merged
 }
 
-function applyBonusPoints(rows: Record<string, string>[], groups: Person[]): Person[] {
-  const indicadores = new Set(rows.map((row) => normalize(row['indicador'])).filter(Boolean))
+function applyBonusPoints(
+  rows: Record<string, string>[],
+  groups: PersonGroup[]
+): PersonGroup[] {
+  const indicadores = new Set(
+    rows.map(row => normalize(row['indicador'])).filter(Boolean)
+  )
 
-  return groups.map((person) => {
+  return groups.map(person => {
     const personKey = normalize(person.name)
 
     const indicados = rows
-      .filter((row) => normalize(row['indicador']) === personKey)
-      .map((row) => normalize(row['indicado']))
+      .filter(row => normalize(row['indicador']) === personKey)
+      .map(row => normalize(row['indicado']))
 
     const indicadosUnicos = [...new Set(indicados)]
 
-    const bonus = indicadosUnicos.filter((indicado) => indicadores.has(indicado)).length
+    const bonus = indicadosUnicos.filter(
+      indicado => indicadores.has(indicado)
+    ).length
 
     return { ...person, referrals: person.referrals + bonus, bonus }
   })
@@ -87,7 +111,7 @@ function getInitials(name: string): string {
   return name
     .split(' ')
     .slice(0, 2)
-    .map((n) => n[0])
+    .map(n => n[0])
     .join('')
     .toUpperCase()
 }
@@ -130,7 +154,10 @@ export async function fetchRanking(): Promise<Person[]> {
   const withBonus = applyBonusPoints(rows, merged)
 
   const result: Person[] = withBonus
-    .sort((a, b) => b.referrals - a.referrals)
+    .sort((a, b) => {
+      if (b.referrals !== a.referrals) return b.referrals - a.referrals
+      return a.lastIndicationDate.getTime() - b.lastIndicationDate.getTime()
+    })
     .map((person, index) => ({
       id: index + 1,
       name: person.name,
@@ -141,4 +168,13 @@ export async function fetchRanking(): Promise<Person[]> {
 
   await setCache(result)
   return result
+}
+
+export async function clearCache(): Promise<void> {
+  try {
+    const cache = await caches.open(CACHE_NAME)
+    await cache.delete('ranking')
+  } catch {
+    // falha silenciosa
+  }
 }
