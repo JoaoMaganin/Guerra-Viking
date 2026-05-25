@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer'
 import useTheme from './hooks/useTheme'
 import type { Person } from './types'
 import { getCache, fetchRanking, clearCache } from './services/rankService'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 function App() {
   const [ranking, setRanking] = useState<Person[]>([])
@@ -36,15 +37,20 @@ function App() {
   }, [])
 
   return (
-    <div className="app">
-      <Background theme={theme} />
-      <Header theme={theme} toggleTheme={toggleTheme} />
-      <main className="app__content">
-        <Podium data={ranking.slice(0, 3)} loading={loading} />
-        <RankingList data={ranking.slice(3, 10)} loading={loading} />
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigate to="/Guerra-Viking" replace />} />
+      <Route path="/Guerra-Viking" element={
+        <div className="app">
+          <Background theme={theme} />
+          <Header theme={theme} toggleTheme={toggleTheme} />
+          <main className="app__content">
+            <Podium data={ranking.slice(0, 3)} loading={loading} />
+            <RankingList data={ranking.slice(3, 10)} loading={loading} />
+          </main>
+          <Footer />
+        </div>
+      } />
+    </Routes>
   )
 }
 
