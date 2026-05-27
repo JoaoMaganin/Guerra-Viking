@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import Background from './components/Background/Background'
-import Header from './components/Header/Header'
-import Podium from './components/Podium/Podium'
-import RankingList from './components/RankingList/RankingList'
-import Footer from './components/Footer/Footer'
+import Home from './pages/Home/Home'
+import GuerraViking from './pages/GuerraViking/GuerraViking'
 import useTheme from './hooks/useTheme'
 import type { Person } from './types'
 import { getCache, fetchRanking, clearCache } from './services/rankService'
-import { Routes, Route, Navigate } from 'react-router-dom'
 
 function App() {
   const [ranking, setRanking] = useState<Person[]>([])
@@ -21,7 +18,6 @@ function App() {
         setRanking(cached)
         setLoading(false)
       }
-
       fetchRanking().then(data => {
         setRanking(data)
         setLoading(false)
@@ -31,25 +27,25 @@ function App() {
     const interval = setInterval(async () => {
       await clearCache()
       fetchRanking().then(data => setRanking(data))
-    }, 1 * 60 * 1000) // Atualiza a cada 1 minuto
+    }, 5 * 60 * 1000)
 
     return () => clearInterval(interval)
   }, [])
 
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/Guerra-Viking" replace />} />
-      <Route path="/Guerra-Viking" element={
-        <div className="app">
-          <Background theme={theme} />
-          <Header theme={theme} toggleTheme={toggleTheme} />
-          <main className="app__content">
-            <Podium data={ranking.slice(0, 3)} loading={loading} />
-            <RankingList data={ranking.slice(3, 10)} loading={loading} />
-          </main>
-          <Footer />
-        </div>
-      } />
+      <Route path="/" element={<Home />} />
+      <Route
+        path="/Guerra-Viking"
+        element={
+          <GuerraViking
+            theme={theme}
+            toggleTheme={toggleTheme}
+            ranking={ranking}
+            loading={loading}
+          />
+        }
+      />
     </Routes>
   )
 }
