@@ -22,7 +22,8 @@ function Header({ theme, toggleTheme }: HeaderProps) {
           <br />
           Vikings
         </h1>
-        <p className="header__subtitle">Mês de Maio · 2026</p>
+        <p className="header__subtitle">Temporada 1 · 2026</p>
+        <p className="header__subtitle">Junho a Dezembro</p>
 
         <button className="header__rules-btn" onClick={open}>
           Regras

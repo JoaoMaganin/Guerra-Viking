@@ -3,7 +3,7 @@ import type { Person, CacheData, PersonGroup } from '../types'
 
 const CSV_URL = import.meta.env.VITE_CSV_URL as string
 const CACHE_NAME = 'ranking-v1'
-const CACHE_TTL = 1 * 60//1 * 60 * 1000
+const CACHE_TTL = 1 * 60 * 1000
 
 
 function normalize(name: string): string {
@@ -147,10 +147,8 @@ export async function fetchRanking(): Promise<Person[]> {
 
   const response = await fetch(CSV_URL)
   const text = await response.text()
-  console.log('Texto bruto:', text)
 
   const rows = parseCSV(text)
-  console.log('Todos os dados:', rows)
   const grouped = groupByIndicador(rows)
   const merged = mergeByFuzzy(grouped)
   const withBonus = applyBonusPoints(rows, merged)
