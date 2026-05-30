@@ -3,7 +3,7 @@ import type { Person, CacheData, PersonGroup } from '../types'
 
 const CSV_URL = import.meta.env.VITE_CSV_URL as string
 const CACHE_NAME = 'ranking-v1'
-const CACHE_TTL = 1 * 60 * 1000
+const CACHE_TTL = 1 * 60//1 * 60 * 1000
 
 
 function normalize(name: string): string {
@@ -31,8 +31,8 @@ function groupByIndicador(rows: Record<string, string>[]): PersonGroup[] {
   const groups: Record<string, PersonGroup> = {}
 
   rows.forEach(row => {
-    const raw = row['indicador']
-    const dateRaw = row['data']
+    const raw = row['quem indicou']
+    const dateRaw = row['data do corte']
     if (!raw) return
 
     const key = normalize(raw)
@@ -87,15 +87,15 @@ function applyBonusPoints(
   groups: PersonGroup[]
 ): PersonGroup[] {
   const indicadores = new Set(
-    rows.map(row => normalize(row['indicador'])).filter(Boolean)
+    rows.map(row => normalize(row['quem indicou'])).filter(Boolean)
   )
 
   return groups.map(person => {
     const personKey = normalize(person.name)
 
     const indicados = rows
-      .filter(row => normalize(row['indicador']) === personKey)
-      .map(row => normalize(row['indicado']))
+      .filter(row => normalize(row['quem indicou']) === personKey)
+      .map(row => normalize(row['cliente que cortou']))
 
     const indicadosUnicos = [...new Set(indicados)]
 
@@ -147,8 +147,10 @@ export async function fetchRanking(): Promise<Person[]> {
 
   const response = await fetch(CSV_URL)
   const text = await response.text()
+  console.log('Texto bruto:', text)
 
   const rows = parseCSV(text)
+  console.log('Todos os dados:', rows)
   const grouped = groupByIndicador(rows)
   const merged = mergeByFuzzy(grouped)
   const withBonus = applyBonusPoints(rows, merged)
