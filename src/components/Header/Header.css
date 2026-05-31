@@ -42,6 +42,12 @@
   margin-bottom: var(--spacing-xl);
 }
 
+.header__brand {
+  font-family: var(--font-display);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
 .header__content {
   padding: 0 var(--spacing-md);
 }

@@ -11,6 +11,8 @@ function Header({ theme, toggleTheme }: HeaderProps) {
     <header className="header">
       <div className="header__stripe" />
 
+      <p className="header__brand">Barbearia Viking</p>
+
       <button className="header__theme-btn" onClick={toggleTheme}>
         {theme === 'dark' ? '☾' : '☀'}
       </button>
@@ -18,9 +20,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
       <div className="header__content">
         <p className="header__eyebrow">✦ Ranking de Indicações ✦</p>
         <h1 className="header__title">
-          Barbearia
-          <br />
-          Vikings
+          Guerra Viking
         </h1>
         <p className="header__subtitle">Temporada 1 · 2026</p>
         <p className="header__subtitle">Junho a Dezembro</p>
