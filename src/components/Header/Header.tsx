@@ -11,7 +11,7 @@ function Header({ theme, toggleTheme }: HeaderProps) {
     <header className="header">
       <div className="header__stripe" />
 
-      <p className="header__brand">Barbearia Viking</p>
+      <p className="header__brand">Barbearia Vikings</p>
 
       <button className="header__theme-btn" onClick={toggleTheme}>
         {theme === 'dark' ? '☾' : '☀'}
