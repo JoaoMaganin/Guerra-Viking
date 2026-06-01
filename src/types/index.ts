@@ -3,12 +3,14 @@ export interface Person {
   name: string
   initials: string
   referrals: number
+  directReferrals?: number
   bonus?: number
 }
 
 export interface PersonGroup {
   name: string
   referrals: number
+  directReferrals: number
   lastIndicationDate: Date
   bonus?: number
 }

@@ -42,11 +42,13 @@ function groupByIndicador(rows: Record<string, string>[]): PersonGroup[] {
       groups[key] = {
         name: raw.trim(),
         referrals: 0,
+        directReferrals: 0,
         lastIndicationDate: date,
       }
     }
 
     groups[key].referrals++
+    groups[key].directReferrals++
 
     if (date > groups[key].lastIndicationDate) {
       groups[key].lastIndicationDate = date
@@ -156,6 +158,7 @@ export async function fetchRanking(): Promise<Person[]> {
   const result: Person[] = withBonus
     .sort((a, b) => {
       if (b.referrals !== a.referrals) return b.referrals - a.referrals
+      if (b.directReferrals !== a.directReferrals) return (b.directReferrals ?? 0) - (a.directReferrals ?? 0)
       return a.lastIndicationDate.getTime() - b.lastIndicationDate.getTime()
     })
     .map((person, index) => ({
@@ -163,6 +166,7 @@ export async function fetchRanking(): Promise<Person[]> {
       name: person.name,
       initials: getInitials(person.name),
       referrals: person.referrals,
+      directReferrals: person.directReferrals,
       bonus: person.bonus,
     }))
 
