@@ -35,8 +35,8 @@ function RankingItem({ person, rank, index, maxReferrals }: RankingItemProps) {
 
 function RankingList({ data, loading }: RankingListProps) {
   const maxReferrals = data?.[0]?.referrals ?? 1
-
-  if (!loading && data.length < 3) return null
+  
+  if (!loading && data.length < 0) return null
 
   return (
     <section className="ranking-list">
